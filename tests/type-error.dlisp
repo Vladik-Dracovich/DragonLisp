@@ -1,0 +1,2 @@
+(defun typed (x) (declare (type integer x)) x)
+(typed "not-an-integer")

@@ -1,0 +1,9 @@
+(defun factorial (n)
+  (if (<= n 1)
+      1
+      (* n (factorial (- n 1)))))
+
+(print (factorial 10))
+(print ((lambda (x) (+ x 7)) 35))
+(print (let ((x 20) (y 22)) (+ x y)))
+(print '(dragon lisp lives))

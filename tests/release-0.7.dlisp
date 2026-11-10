@@ -1,0 +1,21 @@
+;; 0.5: runtime declaration checking
+(defun typed-square (x)
+  (declare (type integer x))
+  (* x x))
+(if (= (typed-square 12) 144) t (error "typed function failed"))
+(let ((x 3))
+  (declare (type integer x))
+  (setq x 5)
+  (if (= x 5) t (error "typed let failed")))
+;; 0.6: Java array and field interop
+(defparameter arr (java/array "int" 2 4 6))
+(if (= (java/aget arr 1) 4) t (error "array get failed"))
+(java/aset arr 1 9)
+(if (= (java/aget arr 1) 9) t (error "array set failed"))
+(if (= (java/field (import "java.lang.Integer") "MAX_VALUE") 2147483647) t (error "field failed"))
+;; 0.7: standard functions and macro expansion
+(if (equal (mapcar (lambda (x) (* x x)) '(1 2 3)) '(1 4 9)) t (error "mapcar failed"))
+(if (= (reduce (lambda (a b) (+ a b)) '(1 2 3 4)) 10) t (error "reduce failed"))
+(defmacro twice (x) `(+ ,x ,x))
+(if (equal (macroexpand '(twice 7)) '(+ 7 7)) t (error "macroexpand failed"))
+(print "DragonLisp 0.5-0.7 tests passed")
